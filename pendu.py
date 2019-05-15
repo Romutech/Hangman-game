@@ -1,3 +1,6 @@
+import os
+from fonctions import *
+
 shots = 8
 word_is_not_found = 1
 loop = 1
@@ -9,7 +12,7 @@ print("C'est parti ! Vous avez 8 chances pour deviner le mot mystère.")
 secret_word = choose_word()
 hidden_word = make_hidden_word(secret_word)
 
-while(loop)
+while(loop) :
 	while shots > 0 and word_is_not_found:
 		print(hidden_word)
 		letter = input("Proposez une lettre qui pourrait être contenu dans le mot mystère")
