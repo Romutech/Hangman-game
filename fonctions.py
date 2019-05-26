@@ -2,10 +2,18 @@ import pickle
 import random
 
 def choose_word():
+	print('recherche d\'un mot...')
 	with open('data', 'rb') as file:
 		my_depickler = pickle.Unpickler(file)
 		words = my_depickler.load()
-	return random.choice(words)
+		word = random.choice(words)
+		if len(word) <= 8:
+			return word
+		else:
+			print('Mot ne corespondant pas au critère')
+			file.close()
+			print('Recherche d\'un nouveau mot...')
+			return choose_word()
 
 def init_hidden_word(secret_word):
 	i = 0
