@@ -34,7 +34,6 @@ def make_hidden_word(secret_word, letter, hidden_word):
 		else:
 			hidden_word_bis = hidden_word_bis + hidden_word[i]
 		i += 1
-
 	hidden_word = hidden_word_bis
 	print('le mot')
 	print(hidden_word_bis)
@@ -62,7 +61,6 @@ def recording_player_score(player_name, points) :
 				score[player_name] = value + points
 		except EOFError as e:
 			score = {player_name: points}
-
 	with open('score', 'wb') as file:
 		my_depickler = pickle.Pickler(file)
 		my_depickler.dump(score)
@@ -72,9 +70,14 @@ def reading_player_score(player_name) :
 		my_depickler = pickle.Unpickler(file)
 		try:
 			score = my_depickler.load()
+			if score.get(player_name) == None:
+				file.close()
+				recording_player_score(player_name, 0)
+				with open('score', 'rb') as file:
+					my_depickler = pickle.Unpickler(file)
+					score = my_depickler.load()
 		except EOFError as e:
 			return 0
-		
 		return score.get(player_name)	
 		
 def reading_scores() :
@@ -85,7 +88,3 @@ def reading_scores() :
 			return my_depickler.load()
 		except Exception as e:
 			return 'Pas de score pour le moment'
-
-
-
-
